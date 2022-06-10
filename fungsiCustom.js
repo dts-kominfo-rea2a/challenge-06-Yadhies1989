@@ -19,7 +19,7 @@ let modifyFile3 = (val) => {
 // TODO: Kerjakan bacaData
 // gunakan variabel file1, file2, dan file3
 const bacaData = (fnCallBack) => {
-  // const kata = [];
+  const word = [];
   // file pertama
   fs.readFile(file1, "utf-8", (err, data1) => {
     if (err) {
@@ -40,20 +40,11 @@ const bacaData = (fnCallBack) => {
         let jsonFile2 = JSON.parse(data2);
         let jsonFile3 = JSON.parse(data3);
 
-        let datasatu = [];
-        datasatu.push(jsonFile1.message.split(" ")[1]);
+        word.push(jsonFile1.message.split(" ")[1]);
+        word.push(jsonFile2[0].message.split(" ")[1]);
+        word.push(jsonFile3[0].data.message.split(" ")[1]);
 
-        jsonFile2.forEach((element) => {
-          datadua = [];
-          datadua.push(element.message.split(" ")[1]);
-        });
-
-        jsonFile3.forEach((element) => {
-          datatiga = [];
-          datatiga.push(element.data.message.split(" ")[1]);
-        });
-
-        fnCallBack(null, [datasatu, datadua, datatiga]);
+        fnCallBack(null, word);
       });
     });
   });
