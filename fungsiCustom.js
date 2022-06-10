@@ -21,46 +21,41 @@ let modifyFile3 = (val) => {
 const bacaData = (fnCallBack) => {
   // const kata = [];
   // file pertama
-  fs.readFile(file1, "utf-8", (err, data) => {
+  fs.readFile(file1, "utf-8", (err, data1) => {
     if (err) {
-      fnCallBack(err, null);
-    } else {
-      const hasilBacaData = JSON.parse(data);
-      const datasatu = [];
-      datasatu.push(hasilBacaData.message.split(" ")[1]);
-
-      // file kedua
-
-      fs.readFile(file2, "utf-8", (err, data) => {
-        if (err) {
-          fnCallBack(err, null);
-        } else {
-          const hasilBacaData = JSON.parse(data);
-
-          hasilBacaData.forEach((element) => {
-            datadua = [];
-            datadua.push(element.message.split(" ")[1]);
-          });
-
-          // file ketiga
-
-          fs.readFile(file3, "utf8", (err, data) => {
-            if (err) {
-              fnCallBack(err, null);
-            } else {
-              const hasilBacaData = JSON.parse(data);
-
-              hasilBacaData.forEach((element) => {
-                datatiga = [];
-                datatiga.push(element.data.message.split(" ")[1]);
-              });
-
-              fnCallBack(null, [datasatu, datadua, datatiga]);
-            }
-          });
-        }
-      });
+      return console.log("Error data 1" + err);
     }
+    // file kedua
+    fs.readFile(file2, "utf8", (err, data2) => {
+      if (err) {
+        return console.log("Error data 2" + err);
+      }
+      // file ketiga
+      fs.readFile(file3, "utf8", (err, data3) => {
+        if (err) {
+          return console.log("Error data 2" + err);
+        }
+
+        let jsonFile1 = JSON.parse(data1);
+        let jsonFile2 = JSON.parse(data2);
+        let jsonFile3 = JSON.parse(data3);
+
+        let datasatu = [];
+        datasatu.push(jsonFile1.message.split(" ")[1]);
+
+        jsonFile2.forEach((element) => {
+          datadua = [];
+          datadua.push(element.message.split(" ")[1]);
+        });
+
+        jsonFile3.forEach((element) => {
+          datatiga = [];
+          datatiga.push(element.data.message.split(" ")[1]);
+        });
+
+        fnCallBack(null, [datasatu, datadua, datatiga]);
+      });
+    });
   });
 };
 
